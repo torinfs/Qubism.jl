@@ -1,0 +1,7 @@
+name = "Qubism"
+uuid = "d91f9c06-53f8-11e9-21d1-d3cf53c14e14"
+authors = ["torinfs <torins@uw.edu>"]
+version = "0.1.0"
+
+[deps]
+Test = "8dfed614-e22c-5e08-85e1-65c5234f0b40"
