@@ -1,6 +1,5 @@
 module Qubism
 
-using InteractiveUtils
 using LinearAlgebra
 
 const ⊗ = kron
@@ -11,7 +10,7 @@ include("gateop.jl")
 function main()
 
     # Number of qubits
-    N = 4
+    N = 2
 
     # Initialize
     reg = Register(N)
@@ -27,7 +26,20 @@ function main()
     #@time GateOp(gate.H, 2, reg)
     #@time GateOp(gate.H, 2, reg)
     #@time GateOp(gate.H, 2, reg)
-    GateOp(gate.H, 2, reg)
+    #gateop(gate.H, 2, 3, reg)
+    #gateop(gate.H, 2, reg)
+    #gateop(gate.H, 3, reg)
+
+    #@time gateop(gate.H, 2, reg)
+    #@time gateop(gate.H, 3, reg)
+    #@time gateop(gate.H, 2, reg)
+    #@time gateop(gate.H, 2, reg)
+    #@time gateop(gate.H, 2, reg)
+    #@time gateop(gate.H, 2, reg)
+
+    gateop(gate.H, 1, reg)
+    cgateop(gate.X, 1, 2, reg)
+    gateop(gate.H, 1, reg)
     display(reg.psi)
     println()
 end
