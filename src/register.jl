@@ -11,7 +11,13 @@ Creates register initializing with all |0⟩ qubits
 mutable struct Register
     N::Int64
     psi::Array{ComplexF64}
-    Register(N) = new(N,zeros(ComplexF64,2^N))
+
+    # Construct with all |0⟩
+    function Register(N)
+        x = zeros(ComplexF64,2^N)
+        x[1] = complex(1.0)
+        new(N,x)
+    end
 end
 
 

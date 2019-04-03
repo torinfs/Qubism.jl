@@ -16,9 +16,6 @@ function main()
     reg = Register(N)
     gate = Gates()
 
-    # FIXME in constructor
-    reg.psi[1] = 1.0
-
     #display(reg.psi)
     #GateOp(gate.H, 1, reg)
     #display(reg.psi)
@@ -39,7 +36,7 @@ function main()
 
     gateop(gate.H, 1, reg)
     cgateop(gate.X, 1, 2, reg)
-    gateop(gate.H, 1, reg)
+    #gateop(gate.H, 1, reg)
     display(reg.psi)
     println()
 end
