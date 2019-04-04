@@ -2,17 +2,17 @@ export Register
 export Gates
 
 """
-Creates register initializing with all |0⟩ qubits
+Creates register initializing with the |0...0⟩ state
 
-- `N`   : Total number of qubits in circuit
-- `psi` : State vector for the 2^N Hilbert space
+- `N`     : Total number of qubits in circuit
+- `state` : State vector for the 2^N Hilbert space
 
 """
 mutable struct Register
-    N::Int64
-    psi::Array{ComplexF64}
+    N::Int
+    state::Array{ComplexF64}
 
-    # Construct with all |0⟩
+    # Construct with state |0...0⟩
     function Register(N)
         x = zeros(ComplexF64,2^N)
         x[1] = complex(1.0)
