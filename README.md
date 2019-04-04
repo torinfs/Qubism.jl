@@ -1,9 +1,9 @@
-# Under Construction!
+# Qubism.jl
 
-## Qubism.jl
+## [Under construction!]
 
 Qubism is quantum circuit simulator written in `Julia`. Functionality includes
-- Quantum Gates
-- ... and hopefully more
+- Basic quantum gate operations
+- ... and hopefully more soon.
 
 
