@@ -15,3 +15,6 @@ matrix:
 
 notifications:
   email: false
+
+after_success:
+  coveralls: true
