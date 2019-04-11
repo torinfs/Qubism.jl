@@ -1,5 +1,7 @@
 language: julia
 
+coveralls: true
+
 os:
   - osx
   - linux
@@ -16,5 +18,3 @@ matrix:
 notifications:
   email: false
 
-after_success:
-  coveralls: true
