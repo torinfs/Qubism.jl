@@ -31,3 +31,16 @@ Op(gate.H, 1, 2, reg)
 Op(gate.H, 1, 2, reg)
 @test isapprox(reg.state,ans)
 
+
+# N = 4 systems
+
+# H(all) - Y(3) - CNOT(2,3) - H(all)
+reg = Register(4)
+ans = zeros(ComplexF64,16)
+ans[7] += -im
+
+Op(gate.H, 1, 4, reg)
+Op(gate.Y, 3, reg)
+cOp(gate.X, 2, 3, reg)
+Op(gate.H, 1, 4, reg)
+@test isapprox(reg.state,ans)
