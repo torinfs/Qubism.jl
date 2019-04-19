@@ -1,7 +1,6 @@
-export Op
-export cOp
+export SOp
+export COp
 export Gates
-export H
 
 
 """
@@ -44,7 +43,7 @@ In general the operation is
 \$ I \\otimes \\dots \\otimes G_q \\otimes \\dots 
 \\otimes G_p \\otimes \\dots \\otimes I \$
 """
-function Op(G::Array{ComplexF64}, q::Int64, reg::Register)
+function SOp(G::Array{ComplexF64}, q::Int64, reg::Register)
  
     # Create pre-gate Identity
     op = zeros(ComplexF64, 2^(q-1), 2^(q-1)) + I
@@ -62,7 +61,7 @@ function Op(G::Array{ComplexF64}, q::Int64, reg::Register)
 end
 
 
-function Op(G::Array{ComplexF64}, q::Int64, p::Int64, reg::Register)
+function SOp(G::Array{ComplexF64}, q::Int64, p::Int64, reg::Register)
     @assert q < p
     op = zeros(ComplexF64, 2^(q-1), 2^(q-1)) + I
 
@@ -86,7 +85,7 @@ end
 Controlled gate operation
 """
 # FIXME: Add case for control below gate
-function cOp(G::Array{ComplexF64}, c::Int64, q::Int64, reg::Register)
+function COp(G::Array{ComplexF64}, c::Int64, q::Int64, reg::Register)
     
     # Create pre-gate Identity
     if c > 1
@@ -122,20 +121,3 @@ function cOp(G::Array{ComplexF64}, c::Int64, q::Int64, reg::Register)
     reg.state = op * reg.state
 end
 
-
-
-# Wrapper functions
-"""
-Single Hadamard
-"""
-function H(N::Int64, reg::Register)
-    Op(gate.H, N, reg)   
-end
-
-
-"""
-Ranged Hadamard
-"""
-function H(N::Int64, M::Int64, reg::Register)
-    Op(gate.H, N, M, reg)   
-end

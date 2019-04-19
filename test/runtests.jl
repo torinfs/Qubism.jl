@@ -1,7 +1,6 @@
 using Qubism
 using Test
 
-gate = Gates()
 fac = 1.0/sqrt(2.0)
 
 # Catch non-integers for register
@@ -15,20 +14,20 @@ reg = Register(2)
 ans = zeros(ComplexF64,4)
 ans[1] = fac; ans[4] = fac
 
-Op(gate.H, 1, reg)
-cOp(gate.X, 1, 2, reg)
+SOp(g.H, 1, reg)
+COp(g.X, 1, 2, reg)
 @test isapprox(reg.state,ans)
 
 # Make range Op function is not negative
-@test_throws AssertionError Op(gate.H, 2, 1, reg)
+@test_throws AssertionError SOp(g.H, 2, 1, reg)
 
 # Double Hadamard circuit
 reg = Register(2)
 ans = zeros(ComplexF64,4)
 ans[1] = 1.0
 
-Op(gate.H, 1, 2, reg)
-Op(gate.H, 1, 2, reg)
+SOp(g.H, 1, 2, reg)
+SOp(g.H, 1, 2, reg)
 @test isapprox(reg.state,ans)
 
 
@@ -39,8 +38,8 @@ reg = Register(4)
 ans = zeros(ComplexF64,16)
 ans[7] += -im
 
-Op(gate.H, 1, 4, reg)
-Op(gate.Y, 3, reg)
-cOp(gate.X, 2, 3, reg)
-Op(gate.H, 1, 4, reg)
+SOp(g.H, 1, 4, reg)
+SOp(g.Y, 3, reg)
+COp(g.X, 2, 3, reg)
+SOp(g.H, 1, 4, reg)
 @test isapprox(reg.state,ans)

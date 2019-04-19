@@ -7,7 +7,7 @@ include("register.jl")
 include("gates.jl")
 
 # Create primitive gate set
-gate = Gates()
-export gate
+g = Gates()
+export g
 
 end
