@@ -1,5 +1,37 @@
-export Op
-export cOp
+export SOp
+export COp
+export Gates
+
+
+"""
+Constructs gate primitives for use in tensor contractions via Op()
+All matrices are of complex float types.
+
+# Gates
+
+- `H` : Hadamard gate
+- `Z` : Pauli Z gate
+- `X` : Pauli X gate
+- `Y` : Pauli Y gate
+- `T` : Rotate π/8 gate
+- `S` : Rotate π/4 gate   
+
+"""
+struct Gates
+    H::Array{ComplexF64}
+    Z::Array{ComplexF64}
+    X::Array{ComplexF64}
+    Y::Array{ComplexF64}
+    T::Array{ComplexF64}
+    S::Array{ComplexF64}
+    Gates() = new((1.0/sqrt(2.0)) * complex([1   1; 1  -1]),
+                  complex([1   0; 0    -1]),
+                  complex([0   1; 1     0]),
+                  complex([0 -im; im    0]),
+                  complex([1   0; 0  ℯ^(im*(π/4))]),
+                  complex([1   0; 0  ℯ^(im*(π/2))]))
+end
+
 
 """
 Performs an gate operation on the register by constructing
@@ -11,7 +43,7 @@ In general the operation is
 \$ I \\otimes \\dots \\otimes G_q \\otimes \\dots 
 \\otimes G_p \\otimes \\dots \\otimes I \$
 """
-function Op(G::Array{ComplexF64}, q::Int64, reg::Register)
+function SOp(G::Array{ComplexF64}, q::Int64, reg::Register)
  
     # Create pre-gate Identity
     op = zeros(ComplexF64, 2^(q-1), 2^(q-1)) + I
@@ -29,7 +61,7 @@ function Op(G::Array{ComplexF64}, q::Int64, reg::Register)
 end
 
 
-function Op(G::Array{ComplexF64}, q::Int64, p::Int64, reg::Register)
+function SOp(G::Array{ComplexF64}, q::Int64, p::Int64, reg::Register)
     @assert q < p
     op = zeros(ComplexF64, 2^(q-1), 2^(q-1)) + I
 
@@ -53,7 +85,7 @@ end
 Controlled gate operation
 """
 # FIXME: Add case for control below gate
-function cOp(G::Array{ComplexF64}, c::Int64, q::Int64, reg::Register)
+function COp(G::Array{ComplexF64}, c::Int64, q::Int64, reg::Register)
     
     # Create pre-gate Identity
     if c > 1
@@ -88,3 +120,4 @@ function cOp(G::Array{ComplexF64}, c::Int64, q::Int64, reg::Register)
     # Update qubit register
     reg.state = op * reg.state
 end
+
