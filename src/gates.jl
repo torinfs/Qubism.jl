@@ -1,7 +1,8 @@
+export Gates
 export SOp
 export COp
-export Gates
-
+export CNOT
+export SWAP
 
 """
 Constructs gate primitives for use in tensor contractions via Op()
@@ -63,6 +64,7 @@ end
 
 function SOp(G::Array{ComplexF64}, q::Int64, p::Int64, reg::Register)
     @assert q < p
+    @assert q != p
     op = zeros(ComplexF64, 2^(q-1), 2^(q-1)) + I
 
     # Operate 2x2 gate G on qubits q through p
@@ -86,7 +88,8 @@ Controlled gate operation
 """
 # FIXME: Add case for control below gate
 function COp(G::Array{ComplexF64}, c::Int64, q::Int64, reg::Register)
-    
+    @assert c != q
+
     # Create pre-gate Identity
     if c > 1
         op = zeros(ComplexF64, 2^(c-1), 2^(c-1)) + I
@@ -111,7 +114,6 @@ function COp(G::Array{ComplexF64}, c::Int64, q::Int64, reg::Register)
         op = con
     end
 
-
     # Identity operations after qubit q
     for i in q+1:reg.N
         op = op ⊗ ident
@@ -120,4 +122,38 @@ function COp(G::Array{ComplexF64}, c::Int64, q::Int64, reg::Register)
     # Update qubit register
     reg.state = op * reg.state
 end
+
+
+function CNOT(c::Int64, q::Int64, reg::Register)
+    if c > q
+        SOp(g.H, q, c, reg)
+        COp(g.X, q, c, reg)
+        SOp(g.H, q, c, reg)
+    else
+        COp(g.X, c, q, reg)
+    end
+end
+
+
+function SWAP(q::Int64, p::Int64, reg::Register)
+    CNOT(q, p, reg)
+    CNOT(p, q, reg)
+    CNOT(q, p, reg)
+end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
