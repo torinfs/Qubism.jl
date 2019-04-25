@@ -43,3 +43,32 @@ SOp(g.Y, 3, reg)
 COp(g.X, 2, 3, reg)
 SOp(g.H, 1, 4, reg)
 @test isapprox(reg.state,ans)
+
+# H(1,2) - Z(1,2) - H(3) - SWAP(1,4)
+reg = Register(4)
+ans = zeros(ComplexF64,16)
+fac = 0.35355339059327345
+ans = [fac + 0.0im
+      -fac + 0.0im
+       fac + 0.0im
+      -fac + 0.0im
+      -fac + 0.0im
+       fac + 0.0im
+      -fac + 0.0im
+       fac + 0.0im
+       0.0 + 0.0im
+       0.0 + 0.0im
+       0.0 + 0.0im
+       0.0 + 0.0im
+       0.0 + 0.0im
+       0.0 + 0.0im
+       0.0 + 0.0im
+       0.0 + 0.0im]
+
+SOp(g.H, 1, 2, reg)
+SOp(g.Z, 1, 2, reg)
+SOp(g.H, 3, reg)
+SWAP(1, 4, reg)
+@test isapprox(reg.state,ans)
+
+
