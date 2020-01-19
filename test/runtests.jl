@@ -14,20 +14,20 @@ reg = Register(2)
 ans = zeros(ComplexF64,4)
 ans[1] = fac; ans[4] = fac
 
-SOp(g.H, 1, reg)
-COp(g.X, 1, 2, reg)
+SOp(H, 1, reg)
+COp(X, 1, 2, reg)
 @test isapprox(reg.state,ans)
 
 # Make range Op function is not negative
-@test_throws AssertionError SOp(g.H, 2, 1, reg)
+@test_throws AssertionError SOp(H, 2, 1, reg)
 
 # Double Hadamard circuit
 reg = Register(2)
 ans = zeros(ComplexF64,4)
 ans[1] = 1.0
 
-SOp(g.H, 1, 2, reg)
-SOp(g.H, 1, 2, reg)
+SOp(H, 1, 2, reg)
+SOp(H, 1, 2, reg)
 @test isapprox(reg.state,ans)
 
 
@@ -38,10 +38,10 @@ reg = Register(4)
 ans = zeros(ComplexF64,16)
 ans[7] += -im
 
-SOp(g.H, 1, 4, reg)
-SOp(g.Y, 3, reg)
-COp(g.X, 2, 3, reg)
-SOp(g.H, 1, 4, reg)
+SOp(H, 1, 4, reg)
+SOp(Y, 3, reg)
+COp(X, 2, 3, reg)
+SOp(H, 1, 4, reg)
 @test isapprox(reg.state,ans)
 
 # H(1,2) - Z(1,2) - H(3) - SWAP(1,4)
@@ -65,9 +65,9 @@ ans = [fac + 0.0im
        0.0 + 0.0im
        0.0 + 0.0im]
 
-SOp(g.H, 1, 2, reg)
-SOp(g.Z, 1, 2, reg)
-SOp(g.H, 3, reg)
+SOp(H, 1, 2, reg)
+SOp(Z, 1, 2, reg)
+SOp(H, 3, reg)
 SWAP(1, 4, reg)
 @test isapprox(reg.state,ans)
 
