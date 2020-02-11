@@ -1,8 +1,8 @@
+export H, Z, X, Y, T, S
 export SOp
 export COp
 export CNOT
 export SWAP
-export H, Z, X, Y, T, S
 
 """
 Constructs gate primitives for use in tensor contractions via Op()

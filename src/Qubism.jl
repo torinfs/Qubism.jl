@@ -4,11 +4,13 @@ using LinearAlgebra
 
 include("register.jl")
 include("gates.jl")
+include("helpers.jl")
 
-# kron operator
+# Unicode kron operator $\otimes$
 const ⊗ = kron
 
 # Export to user
 export ⊗
 
 end
+
