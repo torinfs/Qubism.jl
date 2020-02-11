@@ -23,7 +23,7 @@ Z = complex([1.0   0; 0    -1.0])
 X = complex([0   1.0; 1.0     0])
 Y = complex([0.0 -im; im    0.0])
 T = complex([1.0   0; 0  ℯ^(im*(π/4))])
-S = complex([1.0   0; 0  ℯ^(im*(π/2))])
+S = complex([1.0   0; 0      im])
 
 
 """
