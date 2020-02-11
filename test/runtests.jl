@@ -72,3 +72,22 @@ SWAP(1, 4, reg)
 @test isapprox(reg.state,ans)
 
 
+## Helper functions
+
+# Test printSmart()
+mat = zeros(3,3)
+vec = [1 2 3 4]
+@test nothing == printSmart(mat, "Testmat")
+@test nothing == printSmart(vec, "Testvec")
+@test nothing == printSmart(mat)
+@test_throws MethodError printSmart(mat, 234)
+@test_throws MethodError printSmart(4, "Test")
+
+
+
+
+
+
+
+
+
