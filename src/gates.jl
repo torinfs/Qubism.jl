@@ -1,8 +1,8 @@
-export Gates
 export SOp
 export COp
 export CNOT
 export SWAP
+export H, Z, X, Y, T, S
 
 """
 Constructs gate primitives for use in tensor contractions via Op()
@@ -18,20 +18,12 @@ All matrices are of complex float types.
 - `S` : Rotate π/4 gate   
 
 """
-struct Gates
-    H::Array{ComplexF64}
-    Z::Array{ComplexF64}
-    X::Array{ComplexF64}
-    Y::Array{ComplexF64}
-    T::Array{ComplexF64}
-    S::Array{ComplexF64}
-    Gates() = new((1.0/sqrt(2.0)) * complex([1   1; 1  -1]),
-                  complex([1   0; 0    -1]),
-                  complex([0   1; 1     0]),
-                  complex([0 -im; im    0]),
-                  complex([1   0; 0  ℯ^(im*(π/4))]),
-                  complex([1   0; 0    im]))
-end
+H = (1.0/sqrt(2.0)) * complex([1   1; 1  -1])
+Z = complex([1.0   0; 0    -1.0])
+X = complex([0   1.0; 1.0     0])
+Y = complex([0.0 -im; im    0.0])
+T = complex([1.0   0; 0  ℯ^(im*(π/4))])
+S = complex([1.0   0; 0      im])
 
 
 """
@@ -126,11 +118,11 @@ end
 
 function CNOT(c::Int64, q::Int64, reg::Register)
     if c > q
-        SOp(g.H, q, c, reg)
-        COp(g.X, q, c, reg)
-        SOp(g.H, q, c, reg)
+        SOp(H, q, c, reg)
+        COp(X, q, c, reg)
+        SOp(H, q, c, reg)
     else
-        COp(g.X, c, q, reg)
+        COp(X, c, q, reg)
     end
 end
 
@@ -140,6 +132,8 @@ function SWAP(q::Int64, p::Int64, reg::Register)
     CNOT(p, q, reg)
     CNOT(q, p, reg)
 end
+
+
 
 
 
