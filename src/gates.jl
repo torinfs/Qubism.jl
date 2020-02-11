@@ -30,7 +30,7 @@ struct Gates
                   complex([0   1; 1     0]),
                   complex([0 -im; im    0]),
                   complex([1   0; 0  ℯ^(im*(π/4))]),
-                  complex([1   0; 0  ℯ^(im*(π/2))]))
+                  complex([1   0; 0    im]))
 end
 
 
