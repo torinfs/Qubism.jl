@@ -4,7 +4,7 @@ using Test
 fac = 1.0/sqrt(2.0)
 
 # Catch non-integers for register
-@test_throws AssertionError reg = Register(3.4)
+@test_throws MethodError reg = Register(3.4)
 
 
 # N = 2 systems
@@ -74,14 +74,14 @@ SWAP(1, 4, reg)
 
 ## Helper functions
 
-# Test printSmart()
+# Test print_smart()
 mat = zeros(3,3)
 vec = [1 2 3 4]
-@test nothing == printSmart(mat, "Testmat")
-@test nothing == printSmart(vec, "Testvec")
-@test nothing == printSmart(mat)
-@test_throws MethodError printSmart(mat, 234)
-@test_throws MethodError printSmart(4, "Test")
+@test nothing == print_smart(mat, "Testmat")
+@test nothing == print_smart(vec, "Testvec")
+@test nothing == print_smart(mat)
+@test_throws MethodError print_smart(mat, 234)
+@test_throws MethodError print_smart(4, "Test")
 
 
 

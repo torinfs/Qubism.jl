@@ -32,9 +32,7 @@ the tensor product of the operator. Single index only operates on
 one qubit, the double index operates on multiple *consecutive* qubits.
 
 In general the operation is
-
-\$ I \\otimes \\dots \\otimes G_q \\otimes \\dots 
-\\otimes G_p \\otimes \\dots \\otimes I \$
+(I ⊗ I ... I ⊗ G_q ⊗ G_q+1 ⊗ ... G_p ⊗ I ... ⊗ I) | Register >
 """
 function SOp(G::Array{ComplexF64}, q::Int64, reg::Register)
  
