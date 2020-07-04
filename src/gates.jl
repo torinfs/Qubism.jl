@@ -34,7 +34,7 @@ one qubit, the double index operates on multiple *consecutive* qubits.
 In general the operation is
 (I ⊗ I ... I ⊗ G_q ⊗ G_q+1 ⊗ ... G_p ⊗ I ... ⊗ I) | Register >
 """
-function SOp(G::Array{ComplexF64}, q::Int64, reg::Register)
+function SOp(G::Array{ComplexF64}, q::Int, reg::Register)
  
     # Create pre-gate Identity
     op = zeros(ComplexF64, 2^(q-1), 2^(q-1)) + I
@@ -52,7 +52,7 @@ function SOp(G::Array{ComplexF64}, q::Int64, reg::Register)
 end
 
 
-function SOp(G::Array{ComplexF64}, q::Int64, p::Int64, reg::Register)
+function SOp(G::Array{ComplexF64}, q::Int, p::Int, reg::Register)
     @assert q < p
     @assert q != p
     op = zeros(ComplexF64, 2^(q-1), 2^(q-1)) + I
@@ -77,7 +77,7 @@ end
 Controlled gate operation
 """
 # FIXME: Add case for control below gate
-function COp(G::Array{ComplexF64}, c::Int64, q::Int64, reg::Register)
+function COp(G::Array{ComplexF64}, c::Int, q::Int, reg::Register)
     @assert c != q
 
     # Create pre-gate Identity
@@ -114,7 +114,7 @@ function COp(G::Array{ComplexF64}, c::Int64, q::Int64, reg::Register)
 end
 
 
-function CNOT(c::Int64, q::Int64, reg::Register)
+function CNOT(c::Int, q::Int, reg::Register)
     if c > q
         SOp(H, q, c, reg)
         COp(X, q, c, reg)
@@ -125,7 +125,7 @@ function CNOT(c::Int64, q::Int64, reg::Register)
 end
 
 
-function SWAP(q::Int64, p::Int64, reg::Register)
+function SWAP(q::Int, p::Int, reg::Register)
     CNOT(q, p, reg)
     CNOT(p, q, reg)
     CNOT(q, p, reg)
