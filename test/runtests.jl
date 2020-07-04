@@ -1,10 +1,11 @@
 using Qubism
 using Test
+using LinearAlgebra
 
 fac = 1.0/sqrt(2.0)
 
 # Catch non-integers for register
-@test_throws AssertionError reg = Register(3.4)
+@test_throws MethodError reg = Register(3.4)
 
 
 # N = 2 systems
@@ -71,20 +72,45 @@ SOp(H, 3, reg)
 SWAP(1, 4, reg)
 @test isapprox(reg.state,ans)
 
+## Hamiltonians
+
+# Hubbard Hamiltonian test
+Ham = Hilbert(4)
+fermion(Ham,"1^ 1", -0.25)
+fermion(Ham,"1^ 2", -2.0)
+fermion(Ham,"1^ 3", -2.0 )
+fermion(Ham,"2^ 1", -2.0 )
+fermion(Ham,"2^ 2", -0.25 )
+fermion(Ham,"2^ 4", -2.0 )
+fermion(Ham,"3^ 1", -2.0 )
+fermion(Ham,"3^ 3", -0.25 )
+fermion(Ham,"3^ 4", -2.0 )
+fermion(Ham,"4^ 2", -2.0 )
+fermion(Ham,"4^ 3", -2.0 )
+fermion(Ham,"4^ 4", -0.25 )
+fermion(Ham,"1^ 1 2^ 2", 1.0)
+fermion(Ham,"1^ 1 3^ 3", 1.0 )
+fermion(Ham,"2^ 2 4^ 4", 1.0 )
+fermion(Ham,"3^ 3 4^ 4", 1.0 )
+
+@test isapprox(eigvals(Ham.mat)[1], -4.249999999999999)
+
+
 
 ## Helper functions
 
-# Test printSmart()
+# Test print_smart()
 mat = zeros(3,3)
 vec = [1 2 3 4]
-@test nothing == printSmart(mat, "Testmat")
-@test nothing == printSmart(vec, "Testvec")
-@test nothing == printSmart(mat)
-@test_throws MethodError printSmart(mat, 234)
-@test_throws MethodError printSmart(4, "Test")
+@test nothing == print_smart(mat, "Testmat")
+@test nothing == print_smart(vec, "Testvec")
+@test nothing == print_smart(mat)
+@test_throws MethodError print_smart(mat, 234)
+@test_throws MethodError print_smart(4, "Test")
 
-
-
+# Test parse_operator_string
+@test Tuple[(4, 0), (2, 0), (1, 1), (3, 1)] == parse_operator_string("3^ 1^ 2 4")
+@test_throws ArgumentError parse_operator_string("3^^")
 
 
 

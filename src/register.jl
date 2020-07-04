@@ -12,10 +12,10 @@ mutable struct Register
     state::Array{ComplexF64}
 
     # Construct with state |0...0⟩
-    function Register(N)
-        @assert typeof(N) == Int
+    function Register(N::Int)
         x = zeros(ComplexF64,2^N)
         x[1] = complex(1.0)
         new(N,x)
     end
 end
+

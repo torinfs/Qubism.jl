@@ -3,6 +3,7 @@ module Qubism
 using LinearAlgebra
 
 include("register.jl")
+include("hamiltonian.jl")
 include("gates.jl")
 include("helpers.jl")
 
