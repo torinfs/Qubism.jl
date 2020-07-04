@@ -4,7 +4,7 @@
 
 ## Overview
 
-Qubism is quantum toolbox and quantum circuit simulator written in `Julia`. Functionality currently includes
+Qubism is quantum toolbox and quantum circuit simulator written in Julia. Functionality currently includes
 - Basic quantum gate operations
 - Hamiltonian builders
 
@@ -13,8 +13,10 @@ Warning: This package is currently in very early development, so things will bre
 ## Examples
 
 To create a two site Hamiltonian, adding fermionic creation and annhilation operator terms,
-and printing the result, you can do the following
+and printing the result, you can do the following:
 ```
+using Qubism
+
 Ham = Hilbert(2)
 
 fermion(Ham, "1^ 1", -1.0)
